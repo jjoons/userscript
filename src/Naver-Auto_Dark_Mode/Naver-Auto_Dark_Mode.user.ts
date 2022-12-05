@@ -3,12 +3,12 @@
 // @description 브라우저의 다크 모드 설정에 따라서 자동으로 다크 모드로 전환합니다.
 // @namespace   https://github.com/jjoons
 // @author      JS Lee
-// @version     0.1.0
+// @version     0.1.1
 // @license     MIT
-// @homepage    https://github.com/jjoons/userscripts
+// @homepage    https://github.com/jjoons/userscript
 // @icon        https://icons.duckduckgo.com/ip3/www.naver.com.ico
-// @updateURL   https://github.com/jjoons/userscripts/raw/main/dist/Naver-Auto_Dark_Mode/Naver-Auto_Dark_Mode.user.js
-// @downloadURL https://github.com/jjoons/userscripts/raw/main/dist/Naver-Auto_Dark_Mode/Naver-Auto_Dark_Mode.user.js
+// @updateURL   https://github.com/jjoons/userscript/raw/main/dist/Naver-Auto_Dark_Mode/Naver-Auto_Dark_Mode.user.js
+// @downloadURL https://github.com/jjoons/userscript/raw/main/dist/Naver-Auto_Dark_Mode/Naver-Auto_Dark_Mode.user.js
 // @match       https://www.naver.com/
 // @noframes
 // ==/UserScript==
