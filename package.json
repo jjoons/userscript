@@ -5,10 +5,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "clean": "rm -rf build-ts dist",
-    "build": "tsc",
+    "build": "rm -rf build-ts && tsc",
     "movetodist": "mv build-ts dist",
-    "pub": "yarn clean && yarn build && yarn movetodist"
+    "pub": "yarn build && rm -rf dist && yarn movetodist"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.45.0",
