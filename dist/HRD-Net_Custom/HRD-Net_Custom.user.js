@@ -3,12 +3,12 @@
 // @description 직업훈련포털을 이용하면서 불편했던 부분을 수정합니다.
 // @namespace   https://github.com/jjoons
 // @author      JS Lee
-// @version     0.1.0
+// @version     0.1.1
 // @license     MIT
-// @homepage    https://github.com/jjoons/userscripts
+// @homepage    https://github.com/jjoons/userscript
 // @icon        https://www.hrd.go.kr/new_images/common/favicon.ico
-// @updateURL   https://github.com/jjoons/userscripts/raw/main/dist/HRD-Net_Custom/HRD-Net_Custom.user.js
-// @downloadURL https://github.com/jjoons/userscripts/raw/main/dist/HRD-Net_Custom/HRD-Net_Custom.user.js
+// @updateURL   https://github.com/jjoons/userscript/raw/main/dist/HRD-Net_Custom/HRD-Net_Custom.user.js
+// @downloadURL https://github.com/jjoons/userscript/raw/main/dist/HRD-Net_Custom/HRD-Net_Custom.user.js
 // @match       https://www.hrd.go.kr/*
 // @grant       GM_addStyle
 // @noframes
