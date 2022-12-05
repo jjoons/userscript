@@ -20,10 +20,10 @@ void (function (D, L) {
 
   if (dark) {
     const matchMode = () =>
-      (darkMode.matches && dark === 'true') || (!darkMode.matches && dark === 'false')
+      (isDarkMode && dark === 'true') || (!isDarkMode && dark === 'false')
 
     const switchMode = (mode?: boolean) => {
-      const nDarkMode: boolean | null = mode && matchMode() ? null : darkMode.matches
+      const nDarkMode: boolean | null = mode && matchMode() ? null : isDarkMode
 
       if (typeof nDarkMode === 'boolean') {
         D.cookie = `NDARK=${nDarkMode ? 'Y' : 'N'}; domain=naver.com; max-age=31536000` // 1 Year
