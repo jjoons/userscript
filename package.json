@@ -4,6 +4,10 @@
   "author": "jjoons",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "clean": "rm -rf build-ts dist",
+    "build": "tsc"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
