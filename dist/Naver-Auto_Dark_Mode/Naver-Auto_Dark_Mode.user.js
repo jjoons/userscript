@@ -3,7 +3,7 @@
 // @description 브라우저의 다크 모드 설정에 따라서 자동으로 다크 모드로 전환합니다.
 // @namespace   https://github.com/jjoons
 // @author      JS Lee
-// @version     0.1.1
+// @version     0.1.2
 // @license     MIT
 // @homepage    https://github.com/jjoons/userscript
 // @icon        https://icons.duckduckgo.com/ip3/www.naver.com.ico
@@ -14,12 +14,11 @@
 // ==/UserScript==
 void (function (D, L) {
     const darkMode = matchMedia('(prefers-color-scheme: dark)');
-    const isDarkMode = darkMode.matches;
     const { dark } = D.documentElement.dataset;
     if (dark) {
-        const matchMode = () => (isDarkMode && dark === 'true') || (!isDarkMode && dark === 'false');
+        const matchMode = () => (darkMode.matches && dark === 'true') || (!darkMode.matches && dark === 'false');
         const switchMode = (mode) => {
-            const nDarkMode = mode && matchMode() ? null : isDarkMode;
+            const nDarkMode = mode ?? matchMode() ? null : darkMode.matches;
             if (typeof nDarkMode === 'boolean') {
                 D.cookie = `NDARK=${nDarkMode ? 'Y' : 'N'}; domain=naver.com; max-age=31536000`; // 1 Year
                 L.reload();
