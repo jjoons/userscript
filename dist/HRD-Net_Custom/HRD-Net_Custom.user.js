@@ -3,7 +3,7 @@
 // @description 직업훈련포털을 이용하면서 불편했던 부분을 수정합니다.
 // @namespace   https://github.com/jjoons
 // @author      JS Lee
-// @version     0.1.1
+// @version     0.1.2
 // @license     MIT
 // @homepage    https://github.com/jjoons/userscript
 // @icon        https://www.hrd.go.kr/new_images/common/favicon.ico
@@ -47,10 +47,13 @@ void (function (D, L) {
     else if (L.pathname === '/hrdp/mb/pmbao/PMBAO0100T.do') {
         // 로그인
         const formEl = D.querySelector('form[name=userloginForm]');
-        addEventListener('load', () => {
-            const virtualKeyboardToggleEl = formEl?.querySelector('img#Tk_userloginPwd_checkbox');
-            virtualKeyboardToggleEl?.click();
-        });
+        formEl &&
+            addEventListener('load', () => {
+                const virtualKeyboardToggleEl = formEl.querySelector('img#Tk_userloginPwd_checkbox');
+                if (virtualKeyboardToggleEl?.src.endsWith('on.png')) {
+                    virtualKeyboardToggleEl.click();
+                }
+            });
     }
     else if (L.pathname === '/hrdp/ti/ptiao/PTIAO0300L.do') {
         // 훈련과정 > 국민내일배움카드 훈련과정
