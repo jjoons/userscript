@@ -10,5 +10,5 @@
 ## 유저스크립트 목록
 | 이름                                                                        | 설명                                                                | 설치                                                                                       |
 | --------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| [HRD-Net Custom](/jjoons/userscript/blob/main/src/HRD-Net_Custom/README.md) | 직업훈련포털을 이용하면서 불편했던 부분을 수정합니다.               | [설치](/jjoons/userscript/raw/main/dist/HRD-Net_Custom/HRD-Net_Custom.user.js)             |
-| 네이버: 자동 다크 모드                                                      | 브라우저의 다크 모드 설정에 따라서 자동으로 다크 모드로 전환합니다. | [설치](/jjoons/userscript/raw/main/dist/Naver-Auto_Dark_Mode/Naver-Auto_Dark_Mode.user.js) |
+| [HRD-Net Custom](/src/HRD-Net_Custom/README.md) | 직업훈련포털을 이용하면서 불편했던 부분을 수정합니다.               | [설치](/dist/HRD-Net_Custom/HRD-Net_Custom.user.js)             |
+| 네이버: 자동 다크 모드                                                      | 브라우저의 다크 모드 설정에 따라서 자동으로 다크 모드로 전환합니다. | [설치](/dist/Naver-Auto_Dark_Mode/Naver-Auto_Dark_Mode.user.js) |
