@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rm -rf build-ts && tsc",
     "movetodist": "mv build-ts dist",
-    "pub": "yarn build && rm -rf dist && yarn movetodist"
+    "pub": "npm run build && rm -rf dist && npm run movetodist"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.45.0",
