@@ -1,5 +1,6 @@
-import { GM_AddStyle } from './userscript'
+import type { GMAddStyle, GMInfo } from './userscript'
 
 declare global {
-  let GM_addStyle: GM_AddStyle
+  let GM_addStyle: GMAddStyle
+  let GM_info: GMInfo
 }
