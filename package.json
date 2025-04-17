@@ -5,9 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "rm -rf build-ts && tsc",
-    "movetodist": "mv build-ts dist",
-    "pub": "npm run build && rm -rf dist && npm run movetodist"
+    "build": "tsc",
+    "clean": "rm -rf dist/"
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",
