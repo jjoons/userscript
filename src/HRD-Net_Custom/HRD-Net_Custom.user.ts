@@ -2,11 +2,11 @@
 // @name        HRD-Net
 // @description 직업훈련포털을 이용하면서 불편했던 부분을 수정합니다.
 // @namespace   https://github.com/jjoons
-// @author      JS Lee
-// @version     0.1.2
+// @author      JJoonS
+// @version     0.1.3
 // @license     MIT
 // @homepage    https://github.com/jjoons/userscript
-// @icon        https://www.hrd.go.kr/new_images/common/favicon.ico
+// @icon        https://icons.duckduckgo.com/ip3/www.hrd.go.kr.ico
 // @updateURL   https://github.com/jjoons/userscript/raw/main/dist/HRD-Net_Custom/HRD-Net_Custom.user.js
 // @downloadURL https://github.com/jjoons/userscript/raw/main/dist/HRD-Net_Custom/HRD-Net_Custom.user.js
 // @match       https://www.hrd.go.kr/*
@@ -20,7 +20,7 @@ void (function (D, L) {
   const createElements = <T extends keyof HTMLElementTagNameMap>(
     tagName: T,
     count: number,
-    options?: ElementCreationOptions
+    options?: ElementCreationOptions,
   ) => [...Array(count)].map(() => D.createElement<T>(tagName, options))
 
   D.oncontextmenu = null
@@ -35,7 +35,9 @@ void (function (D, L) {
     }`)
 
     addEventListener('load', () => {
-      const sortAreaEl = D.querySelector<HTMLDivElement>('form[name=searchForm1] div.sortArea')
+      const sortAreaEl = D.querySelector<HTMLDivElement>(
+        'form[name=searchForm1] div.sortArea',
+      )
 
       if (sortAreaEl) {
         const [topArea, checkBoxArea] = createElements('div', 2)
@@ -46,11 +48,13 @@ void (function (D, L) {
         checkBox.addEventListener('change', function () {
           const checkBoxEls =
             schoolListEl?.querySelectorAll<HTMLInputElement>(
-              'li input[type="checkbox"][name="intrstInfoSeqNo"]'
+              'li input[type="checkbox"][name="intrstInfoSeqNo"]',
             ) ?? []
 
           for (const i of checkBoxEls) {
-            ;(this.checked ? !i.checked : i.checked) && i.click()
+            if (this.checked ? !i.checked : i.checked) {
+              i.click()
+            }
           }
         })
         const checkBoxLabel = D.createElement('label')
@@ -65,15 +69,16 @@ void (function (D, L) {
 
     const formEl = D.querySelector<HTMLFormElement>('form[name=userloginForm]')
 
-    formEl &&
+    if (formEl) {
       addEventListener('load', () => {
         const virtualKeyboardToggleEl = formEl.querySelector<HTMLImageElement>(
-          'img#Tk_userloginPwd_checkbox'
+          'img#Tk_userloginPwd_checkbox',
         )
         if (virtualKeyboardToggleEl?.src.endsWith('on.png')) {
           virtualKeyboardToggleEl.click()
         }
       })
+    }
   } else if (L.pathname === '/hrdp/ti/ptiao/PTIAO0300L.do') {
     // 훈련과정 > 국민내일배움카드 훈련과정
 
