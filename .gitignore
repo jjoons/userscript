@@ -1,5 +1,5 @@
 node_modules/
 *.log
 logs/
-build-ts/
+dist/
 build/
