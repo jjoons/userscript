@@ -1,1 +1,2 @@
-export { waitForElement, xPathResultToArray } from './doms'
+export { createElements, waitForElement, xPathResultToArray } from './doms'
+export * from './strings'
