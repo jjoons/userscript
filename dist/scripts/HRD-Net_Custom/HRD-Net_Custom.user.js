@@ -1,14 +1,15 @@
+"use strict";
 // ==UserScript==
 // @name        HRD-Net
 // @description 직업훈련포털을 이용하면서 불편했던 부분을 수정합니다.
 // @namespace   https://github.com/jjoons
-// @author      JS Lee
-// @version     0.1.2
+// @author      JJoonS
+// @version     0.1.3
 // @license     MIT
 // @homepage    https://github.com/jjoons/userscript
-// @icon        https://www.hrd.go.kr/new_images/common/favicon.ico
-// @updateURL   https://github.com/jjoons/userscript/raw/main/dist/HRD-Net_Custom/HRD-Net_Custom.user.js
-// @downloadURL https://github.com/jjoons/userscript/raw/main/dist/HRD-Net_Custom/HRD-Net_Custom.user.js
+// @icon        https://icons.duckduckgo.com/ip3/www.hrd.go.kr.ico
+// @updateURL   https://github.com/jjoons/userscript/raw/main/dist/scripts/HRD-Net_Custom/HRD-Net_Custom.user.js
+// @downloadURL https://github.com/jjoons/userscript/raw/main/dist/scripts/HRD-Net_Custom/HRD-Net_Custom.user.js
 // @match       https://www.hrd.go.kr/*
 // @grant       GM_addStyle
 // @noframes
@@ -33,8 +34,9 @@ void (function (D, L) {
                 checkBox.addEventListener('change', function () {
                     const checkBoxEls = schoolListEl?.querySelectorAll('li input[type="checkbox"][name="intrstInfoSeqNo"]') ?? [];
                     for (const i of checkBoxEls) {
-                        ;
-                        (this.checked ? !i.checked : i.checked) && i.click();
+                        if (this.checked ? !i.checked : i.checked) {
+                            i.click();
+                        }
                     }
                 });
                 const checkBoxLabel = D.createElement('label');
@@ -47,13 +49,14 @@ void (function (D, L) {
     else if (L.pathname === '/hrdp/mb/pmbao/PMBAO0100T.do') {
         // 로그인
         const formEl = D.querySelector('form[name=userloginForm]');
-        formEl &&
+        if (formEl) {
             addEventListener('load', () => {
                 const virtualKeyboardToggleEl = formEl.querySelector('img#Tk_userloginPwd_checkbox');
                 if (virtualKeyboardToggleEl?.src.endsWith('on.png')) {
                     virtualKeyboardToggleEl.click();
                 }
             });
+        }
     }
     else if (L.pathname === '/hrdp/ti/ptiao/PTIAO0300L.do') {
         // 훈련과정 > 국민내일배움카드 훈련과정

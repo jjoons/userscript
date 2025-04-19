@@ -1,14 +1,15 @@
+"use strict";
 // ==UserScript==
 // @name        네이버: 자동 다크 모드
 // @description 브라우저의 다크 모드 설정에 따라서 자동으로 다크 모드로 전환합니다.
 // @namespace   https://github.com/jjoons
-// @author      JS Lee
+// @author      JJoonS
 // @version     0.1.3
 // @license     MIT
 // @homepage    https://github.com/jjoons/userscript
 // @icon        https://icons.duckduckgo.com/ip3/www.naver.com.ico
-// @updateURL   https://github.com/jjoons/userscript/raw/main/dist/Naver-Auto_Dark_Mode/Naver-Auto_Dark_Mode.user.js
-// @downloadURL https://github.com/jjoons/userscript/raw/main/dist/Naver-Auto_Dark_Mode/Naver-Auto_Dark_Mode.user.js
+// @updateURL   https://github.com/jjoons/userscript/raw/main/dist/scripts/Naver-Auto_Dark_Mode/Naver-Auto_Dark_Mode.user.js
+// @downloadURL https://github.com/jjoons/userscript/raw/main/dist/scripts/Naver-Auto_Dark_Mode/Naver-Auto_Dark_Mode.user.js
 // @match       https://www.naver.com/
 // @noframes
 // ==/UserScript==

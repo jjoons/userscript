@@ -18,5 +18,5 @@
 | ~~네이버: 자동 다크 모드~~              | ~~브라우저의 다크 모드 설정에 따라서 자동으로 다크 모드로 전환합니다.~~ | ~~[설치][naver_auto_dark_mode-raw]~~ |
 
 [hrd_net_custom-readme]: /src/HRD-Net_Custom/README.md
-[hrd_net_custom-raw]: https://github.com/jjoons/userscript/raw/main/dist/HRD-Net_Custom/HRD-Net_Custom.user.js
-[naver_auto_dark_mode-raw]: https://github.com/jjoons/userscript/raw/main/dist/Naver-Auto_Dark_Mode/Naver-Auto_Dark_Mode.user.js
+[hrd_net_custom-raw]: https://github.com/jjoons/userscript/raw/main/dist/scripts/HRD-Net_Custom/HRD-Net_Custom.user.js
+[naver_auto_dark_mode-raw]: https://github.com/jjoons/userscript/raw/main/dist/scripts/Naver-Auto_Dark_Mode/Naver-Auto_Dark_Mode.user.js
