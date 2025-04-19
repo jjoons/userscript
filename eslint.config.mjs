@@ -1,5 +1,6 @@
 import pluginJs from '@eslint/js'
 import eslintConfigPrettier from 'eslint-config-prettier/flat'
+import { globalIgnores } from 'eslint/config'
 import globals from 'globals'
 import tsEsLint from 'typescript-eslint'
 
@@ -10,6 +11,7 @@ const eslintConfig = [
   pluginJs.configs.recommended,
   ...tsEsLint.configs.recommended,
   eslintConfigPrettier,
+  globalIgnores(['dist/**/*.js']),
   {
     files: ['src/**/*.ts'],
     rules: {
