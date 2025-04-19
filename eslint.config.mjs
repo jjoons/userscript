@@ -11,16 +11,20 @@ const eslintConfig = [
   pluginJs.configs.recommended,
   ...tsEsLint.configs.recommended,
   eslintConfigPrettier,
-  globalIgnores(['dist/**/*.js']),
+  globalIgnores(['dist/**/*.js', '{packages,shared}/*/dist/**/*.js']),
   {
-    files: ['src/**/*.ts'],
+    files: ['src/**/*.ts', '{packages,shared}/*/src/**/*.{ts,tsx}'],
     rules: {
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-empty-object-type': 'warn',
     },
   },
   {
-    files: ['src/**/*.{js,mjs,cjs}', './*.{js,mjs,cjs}'],
+    files: [
+      'src/**/*.{js,mjs,cjs}',
+      './*.{js,mjs,cjs}',
+      '{packages,shared}/*/src/**/*.{js,mjs,cjs}',
+    ],
     rules: {
       'no-unused-vars': 'warn',
     },

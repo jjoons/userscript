@@ -1,3 +1,5 @@
 dist
+packages/*/dist/
+shared/*/dist/
 
 ##### Custom
