@@ -7,8 +7,8 @@
 // @license     MIT
 // @homepage    https://github.com/jjoons/userscript
 // @icon        https://icons.duckduckgo.com/ip3/www.hrd.go.kr.ico
-// @updateURL   https://github.com/jjoons/userscript/raw/main/dist/HRD-Net_Custom/HRD-Net_Custom.user.js
-// @downloadURL https://github.com/jjoons/userscript/raw/main/dist/HRD-Net_Custom/HRD-Net_Custom.user.js
+// @updateURL   https://github.com/jjoons/userscript/raw/main/dist/scripts/HRD-Net_Custom/HRD-Net_Custom.user.js
+// @downloadURL https://github.com/jjoons/userscript/raw/main/dist/scripts/HRD-Net_Custom/HRD-Net_Custom.user.js
 // @match       https://www.hrd.go.kr/*
 // @grant       GM_addStyle
 // @noframes
