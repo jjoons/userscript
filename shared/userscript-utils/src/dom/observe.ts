@@ -101,11 +101,14 @@ export const observeElement = <E extends Element = Element>(
 }
 
 interface ObserveElementOptions<E extends Element = Element> {
+  /**
+   * 탐색 기준이 되는 `Node`
+   */
   baseNode?: Node
   onAdd?(node: E): void
   onRemove?(node: E): void
   onAttribute?(node: E, attribute: string): void
-  onCharacterData?(node: E): void
+  // onCharacterData?(node: E): void
 }
 
 interface ObserveElementControl {
