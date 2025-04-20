@@ -148,6 +148,7 @@ export const observeElement = <E extends Element = Element>(
 ) => {
   if (isBlank(selector)) throw new Error('selector is blank')
 
+  let isStarted = false
   const observerOptions: MutationObserverInit = {}
 
   if (onAdd || onRemove) {
@@ -215,9 +216,14 @@ export const observeElement = <E extends Element = Element>(
   return {
     start() {
       observer.observe(baseNode, observerOptions)
+      isStarted = true
     },
     stop() {
       observer.disconnect()
+      isStarted = false
+    },
+    get isStarted(): boolean {
+      return isStarted
     },
   }
 }
