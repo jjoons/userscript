@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "pnpm -r --filter=./packages/* build",
+    "build": "pnpm build-shared && pnpm -r --filter=./packages/* build",
     "build-shared": "pnpm -r --filter=./shared/* build",
     "clean": "rm -rf dist/"
   },
