@@ -145,7 +145,7 @@ export const observeElement = <E extends Element = Element>(
     onRemove,
     onAttribute,
   }: ObserveElementOptions<E>,
-) => {
+): ObserveElementControl => {
   if (isBlank(selector)) throw new Error('selector is blank')
 
   let isStarted = false
@@ -234,4 +234,10 @@ interface ObserveElementOptions<E extends Element = Element> {
   onRemove?(node: E): void
   onAttribute?(node: E, attribute: string): void
   onCharacterData?(node: E): void
+}
+
+interface ObserveElementControl {
+  start(): void
+  stop(): void
+  get isStarted(): boolean
 }
