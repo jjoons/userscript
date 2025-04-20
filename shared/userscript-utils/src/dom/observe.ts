@@ -42,10 +42,10 @@ export const observeElement = <E extends Element = Element>(
               if (addedNode.matches(selector)) {
                 onAdd(addedNode as E)
               } else {
-                const el = addedNode.querySelector(selector)
+                const el = addedNode.querySelector<E>(selector)
 
                 if (el) {
-                  onAdd(el as E)
+                  onAdd(el)
                 }
               }
             }
@@ -58,10 +58,10 @@ export const observeElement = <E extends Element = Element>(
               if (removedNodes.matches(selector)) {
                 onRemove(removedNodes as E)
               } else {
-                const el = removedNodes.querySelector(selector)
+                const el = removedNodes.querySelector<E>(selector)
 
                 if (el) {
-                  onRemove(el as E)
+                  onRemove(el)
                 }
               }
             }
