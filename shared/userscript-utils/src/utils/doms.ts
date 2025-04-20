@@ -140,7 +140,7 @@ export const createElements = <T extends keyof HTMLElementTagNameMap>(
 export const observeElement = <E extends Element = Element>(
   selector: string,
   {
-    baseNode = document,
+    baseNode = document.body,
     onAdd,
     onRemove,
     onAttribute,
