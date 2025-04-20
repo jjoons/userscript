@@ -1,1 +1,3 @@
-export * from './utils/index'
+export * from './dom'
+export * from './others'
+export * from './strings'
