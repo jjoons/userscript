@@ -13,6 +13,7 @@ export const observeElement = <E extends Element = Element>(
   selector: string | null,
   {
     baseNode = document.body,
+    recursive = {},
     onAdd,
     onRemove,
     onAttribute,
@@ -41,11 +42,21 @@ export const observeElement = <E extends Element = Element>(
             if (addedNode instanceof Element) {
               if (selector) {
                 if (addedNode.matches(selector)) {
-                  onAdd(addedNode as E)
+                  onAdd({ node: addedNode as E })
+                } else if (baseNode instanceof Element) {
+                  if (recursive.add === 'single') {
+                    const el = baseNode.querySelector<E>(selector)
+
+                    if (el) onAdd({ node: el, recursive: recursive.add })
+                  } else if (recursive.add === 'all') {
+                    for (const el of Array.from(
+                      baseNode.querySelectorAll<E>(selector),
+                    )) {
+                      onAdd({ node: el, recursive: recursive.add })
+                    }
+                  }
                 }
-              } else {
-                onAdd(addedNode as E)
-              }
+              } else onAdd({ node: addedNode as E })
             }
           }
         }
@@ -55,11 +66,21 @@ export const observeElement = <E extends Element = Element>(
             if (removedNodes instanceof Element) {
               if (selector) {
                 if (removedNodes.matches(selector)) {
-                  onRemove(removedNodes as E)
+                  onRemove({ node: removedNodes as E })
+                } else if (baseNode instanceof Element) {
+                  if (recursive.remove === 'single') {
+                    const el = baseNode.querySelector<E>(selector)
+
+                    if (el) onRemove({ node: el, recursive: recursive.remove })
+                  } else if (recursive.remove === 'all') {
+                    for (const el of Array.from(
+                      baseNode.querySelectorAll<E>(selector),
+                    )) {
+                      onRemove({ node: el, recursive: recursive.remove })
+                    }
+                  }
                 }
-              } else {
-                onRemove(removedNodes as E)
-              }
+              } else onRemove({ node: removedNodes as E })
             }
           }
         }
@@ -70,11 +91,41 @@ export const observeElement = <E extends Element = Element>(
       ) {
         if (selector) {
           if (mut.target.matches(selector)) {
-            onAttribute(mut.target as E, mut.attributeName!)
+            onAttribute({
+              node: mut.target as E,
+              value: mut.attributeName,
+              oldValue: mut.oldValue,
+            })
+          } else if (baseNode instanceof Element) {
+            if (recursive.attribute === 'single') {
+              const el = baseNode.querySelector<E>(selector)
+
+              if (el)
+                onAttribute({
+                  node: el,
+                  recursive: recursive.attribute,
+                  value: mut.attributeName,
+                  oldValue: mut.oldValue,
+                })
+            } else if (recursive.attribute === 'all') {
+              for (const el of Array.from(
+                baseNode.querySelectorAll<E>(selector),
+              )) {
+                onAttribute({
+                  node: el,
+                  recursive: recursive.attribute,
+                  value: mut.attributeName,
+                  oldValue: mut.oldValue,
+                })
+              }
+            }
           }
-        } else {
-          onAttribute(mut.target as E, mut.attributeName!)
-        }
+        } else
+          onAttribute({
+            node: mut.target as E,
+            value: mut.attributeName,
+            oldValue: mut.oldValue,
+          })
       }
     }
   })
@@ -99,9 +150,14 @@ interface ObserveElementOptions<E extends Element = Element> {
    * 탐색 기준이 되는 `Node`
    */
   baseNode?: Node
-  onAdd?(node: E): void
-  onRemove?(node: E): void
-  onAttribute?(node: E, attribute: string): void
+  recursive?: {
+    add?: ObserveElementOptionsRecursiveValue
+    remove?: ObserveElementOptionsRecursiveValue
+    attribute?: ObserveElementOptionsRecursiveValue
+  }
+  onAdd?(event: ObserveElementEvent<E>): void
+  onRemove?(event: ObserveElementEvent<E>): void
+  onAttribute?(event: ObserveElementAttrCharDataEvent<E>): void
   // onCharacterData?(node: E): void
 }
 
@@ -109,4 +165,17 @@ interface ObserveElementControl {
   start(): void
   stop(): void
   get isStarted(): boolean
+}
+
+type ObserveElementOptionsRecursiveValue = 'single' | 'all'
+
+interface ObserveElementEvent<E extends Element = Element> {
+  node: E
+  recursive?: ObserveElementOptionsRecursiveValue
+}
+
+interface ObserveElementAttrCharDataEvent<E extends Element = Element>
+  extends ObserveElementEvent<E> {
+  value: string | null
+  oldValue: string | null
 }
