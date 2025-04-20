@@ -5,12 +5,12 @@ import { isBlank } from '../strings'
  *
  * Callback을 지정한 변수만 로직이 작동되도록 설계.
  *
- * @param selector CSS Selector
+ * @param selector CSS Selector. `null`일 경우 Selector와 상관없이 Callback 실행
  * @param options 기준이 되는 `Node` 및 Callback 등을 정의하는 객체
  * @returns
  */
 export const observeElement = <E extends Element = Element>(
-  selector: string,
+  selector: string | null,
   {
     baseNode = document.body,
     onAdd,
@@ -18,7 +18,7 @@ export const observeElement = <E extends Element = Element>(
     onAttribute,
   }: ObserveElementOptions<E>,
 ): ObserveElementControl => {
-  if (isBlank(selector)) throw new Error('selector is blank')
+  if (selector && isBlank(selector)) throw new Error('selector is blank')
 
   let isStarted = false
   const observerOptions: MutationObserverInit = {}
@@ -39,14 +39,12 @@ export const observeElement = <E extends Element = Element>(
         if (onAdd) {
           for (const addedNode of Array.from(mut.addedNodes)) {
             if (addedNode instanceof Element) {
-              if (addedNode.matches(selector)) {
-                onAdd(addedNode as E)
-              } else {
-                const el = addedNode.querySelector<E>(selector)
-
-                if (el) {
-                  onAdd(el)
+              if (selector) {
+                if (addedNode.matches(selector)) {
+                  onAdd(addedNode as E)
                 }
+              } else {
+                onAdd(addedNode as E)
               }
             }
           }
@@ -55,14 +53,12 @@ export const observeElement = <E extends Element = Element>(
         if (onRemove) {
           for (const removedNodes of Array.from(mut.removedNodes)) {
             if (removedNodes instanceof Element) {
-              if (removedNodes.matches(selector)) {
-                onRemove(removedNodes as E)
-              } else {
-                const el = removedNodes.querySelector<E>(selector)
-
-                if (el) {
-                  onRemove(el)
+              if (selector) {
+                if (removedNodes.matches(selector)) {
+                  onRemove(removedNodes as E)
                 }
+              } else {
+                onRemove(removedNodes as E)
               }
             }
           }
@@ -72,14 +68,12 @@ export const observeElement = <E extends Element = Element>(
         onAttribute &&
         mut.target instanceof Element
       ) {
-        if (mut.target.matches(selector)) {
-          onAttribute(mut.target as E, mut.attributeName!)
-        } else {
-          const el = mut.target.querySelector(selector)
-
-          if (el) {
+        if (selector) {
+          if (mut.target.matches(selector)) {
             onAttribute(mut.target as E, mut.attributeName!)
           }
+        } else {
+          onAttribute(mut.target as E, mut.attributeName!)
         }
       }
     }
