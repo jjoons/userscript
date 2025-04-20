@@ -83,7 +83,7 @@ export const waitForElement = <E extends Element = Element>(
   selector: string,
   timeout: number = WAIT_FOR_ELEMENT_DEFAULT_TIMEOUT,
 ): Promise<E | null> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const el = document.querySelector<E>(selector)
     if (el) return resolve(el)
 
