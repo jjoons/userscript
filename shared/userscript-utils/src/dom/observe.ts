@@ -43,17 +43,15 @@ export const observeElement = <E extends Element = Element>(
               if (selector) {
                 if (addedNode.matches(selector)) {
                   onAdd({ node: addedNode as E })
-                } else if (baseNode instanceof Element) {
-                  if (recursive.add === 'single') {
-                    const el = baseNode.querySelector<E>(selector)
+                } else if (recursive.add === 'single') {
+                  const el = addedNode.querySelector<E>(selector)
 
-                    if (el) onAdd({ node: el, recursive: recursive.add })
-                  } else if (recursive.add === 'all') {
-                    for (const el of Array.from(
-                      baseNode.querySelectorAll<E>(selector),
-                    )) {
-                      onAdd({ node: el, recursive: recursive.add })
-                    }
+                  if (el) onAdd({ node: el, recursive: recursive.add })
+                } else if (recursive.add === 'all') {
+                  for (const el of Array.from(
+                    addedNode.querySelectorAll<E>(selector),
+                  )) {
+                    onAdd({ node: el, recursive: recursive.add })
                   }
                 }
               } else onAdd({ node: addedNode as E })
@@ -67,17 +65,15 @@ export const observeElement = <E extends Element = Element>(
               if (selector) {
                 if (removedNodes.matches(selector)) {
                   onRemove({ node: removedNodes as E })
-                } else if (baseNode instanceof Element) {
-                  if (recursive.remove === 'single') {
-                    const el = baseNode.querySelector<E>(selector)
+                } else if (recursive.remove === 'single') {
+                  const el = removedNodes.querySelector<E>(selector)
 
-                    if (el) onRemove({ node: el, recursive: recursive.remove })
-                  } else if (recursive.remove === 'all') {
-                    for (const el of Array.from(
-                      baseNode.querySelectorAll<E>(selector),
-                    )) {
-                      onRemove({ node: el, recursive: recursive.remove })
-                    }
+                  if (el) onRemove({ node: el, recursive: recursive.remove })
+                } else if (recursive.remove === 'all') {
+                  for (const el of Array.from(
+                    removedNodes.querySelectorAll<E>(selector),
+                  )) {
+                    onRemove({ node: el, recursive: recursive.remove })
                   }
                 }
               } else onRemove({ node: removedNodes as E })
@@ -96,28 +92,26 @@ export const observeElement = <E extends Element = Element>(
               value: mut.attributeName,
               oldValue: mut.oldValue,
             })
-          } else if (baseNode instanceof Element) {
-            if (recursive.attribute === 'single') {
-              const el = baseNode.querySelector<E>(selector)
+          } else if (recursive.attribute === 'single') {
+            const el = mut.target.querySelector<E>(selector)
 
-              if (el)
-                onAttribute({
-                  node: el,
-                  recursive: recursive.attribute,
-                  value: mut.attributeName,
-                  oldValue: mut.oldValue,
-                })
-            } else if (recursive.attribute === 'all') {
-              for (const el of Array.from(
-                baseNode.querySelectorAll<E>(selector),
-              )) {
-                onAttribute({
-                  node: el,
-                  recursive: recursive.attribute,
-                  value: mut.attributeName,
-                  oldValue: mut.oldValue,
-                })
-              }
+            if (el)
+              onAttribute({
+                node: el,
+                recursive: recursive.attribute,
+                value: mut.attributeName,
+                oldValue: mut.oldValue,
+              })
+          } else if (recursive.attribute === 'all') {
+            for (const el of Array.from(
+              mut.target.querySelectorAll<E>(selector),
+            )) {
+              onAttribute({
+                node: el,
+                recursive: recursive.attribute,
+                value: mut.attributeName,
+                oldValue: mut.oldValue,
+              })
             }
           }
         } else
