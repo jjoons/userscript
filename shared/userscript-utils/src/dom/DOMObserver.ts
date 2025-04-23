@@ -1,7 +1,7 @@
 import { isBlank } from '../strings'
 
 /**
- * {@link MutationObserver}
+ * {@linkcode MutationObserver}를 이용해 DOM 변화를 감지하는 클래스
  */
 export class DOMObserver {
   static #instance: DOMObserver
@@ -11,12 +11,17 @@ export class DOMObserver {
   #isStarted = false
   #subscribers: DOMObserverSubscribe[] = []
 
+  /**
+   *
+   *
+   */
   private constructor(options: DOMObserverConstructorOptions) {
     this.#observer = new MutationObserver(this.#mutationCallback.bind(this))
     this.#baseNode = options.baseNode
   }
 
   /**
+   * {@linkcode DOMObserver} 클래스를 만들 때 사용되는 정적 메소드
    *
    * @param options 인스턴스를 생성할 때 사용하는 옵션
    */
@@ -36,6 +41,9 @@ export class DOMObserver {
     return DOMObserver.#instance
   }
 
+  /**
+   * `MutationObserver`를 시작하는 메소드
+   */
   #start() {
     this.#observer.observe(this.#baseNode, {
       childList: true,
@@ -47,12 +55,21 @@ export class DOMObserver {
     this.#isStarted = true
   }
 
+  /**
+   * `MutationObserver`를 정지하는 메소드
+   */
   #stop() {
     this.#observer.disconnect()
 
     this.#isStarted = false
   }
 
+  /**
+   * `Element` 감지를 위해 구독하는 메소드
+   *
+   * @param options 모니터링할 때 사용하는 옵션
+   * @returns
+   */
   public subscribe(
     options: DOMObserverSubscribe,
   ): DOMObserverSubscribeController {
@@ -176,37 +193,62 @@ export class DOMObserver {
   }
 }
 
+/** `DOMObserver` `Constructor` 파라미터 옵션  */
 interface DOMObserverConstructorOptions {
   baseNode: Node
 }
 
+/** `DOMObserver` `getInstance` 파라미터 옵션 */
 interface DOMObserverGetInstanceOptions {
   baseNode?: Node
 }
 
+/**
+ * 구독을 등록할 떄 사용하는 객체
+ */
 interface DOMObserverSubscribe<E extends Element = Element> {
+  /** CSS 선택자 */
   selector: string | null
+  /**
+   * 얼마나 깊이 찾을지(재귀적으로 탐색할 지) 지정하는 옵션.
+   * 각 Callback 별로 다르게 설정할 수 있음
+   */
   deep?: {
     add?: DOMObserverDeepValue
     remove?: DOMObserverDeepValue
     attribute?: DOMObserverDeepValue
   }
+  /** `Node`가 추가되었을 때 호출되는 Callback */
   onAdd?(event: DOMObserverEvent<E>): void
+  /** `Node`가 삭제되었을 때 호출되는 Callback */
   onRemove?(event: DOMObserverEvent<E>): void
+  /** Attribute 변경이 감지되었을 떄 실행되는 Callback */
   onAttribute?(event: DOMObserverAttrCharDataEvent<E>): void
 }
 
+/**
+ * `single`: {@linkcode Element.querySelector}를 사용하여 한 번만 찾고 존재하면 재귀적으로 탐색
+ *
+ * `all`: {@linkcode Element.querySelectorAll}을 사용하여 재귀적으로 탐색한 다음,
+ * 조건에 일치하는 모든 `Element`를 Callback 실행
+ */
 type DOMObserverDeepValue = 'single' | 'all'
 
 interface DOMObserverSubscribeController {
   unsubscribe(): void
 }
 
+/**
+ * DOM 추가 및 삭제 등이 감지되었을 때 Callback 파라미터로 전달되는 객체
+ */
 interface DOMObserverEvent<E extends Element = Element> {
   node: E
   deep?: DOMObserverDeepValue
 }
 
+/**
+ * Attribute, CharacterData 변경 이벤트가 감지되었을 때 전달되는 객체
+ */
 interface DOMObserverAttrCharDataEvent<E extends Element = Element>
   extends DOMObserverEvent<E> {
   value: string | null
