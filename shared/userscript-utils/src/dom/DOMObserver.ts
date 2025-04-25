@@ -39,8 +39,6 @@ export class DOMObserver {
     }
 
     if (!(baseNode instanceof Node)) {
-      console.log('baseNode', baseNode)
-      console.log('this.#DEFAULT_BASE_NODE', this.#DEFAULT_BASE_NODE)
       throw new Error('The type of the baseNode property must be of type Node')
     }
 
