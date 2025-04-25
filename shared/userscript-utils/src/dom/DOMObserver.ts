@@ -4,15 +4,15 @@ import { isBlank } from '../strings'
  * {@linkcode MutationObserver}를 이용해 DOM 변화를 감지하는 클래스
  */
 export class DOMObserver {
-  static #instance: DOMObserver
-  #observer: MutationObserver
+  static readonly #DEFAULT_BASE_NODE: Node = document.body
+  static #instances: DOMObserver[] = []
+  readonly #observer: MutationObserver
   /** 변경 사항을 감지할 `Node` */
-  #baseNode: Node
+  readonly #baseNode: Node
   #isStarted = false
   #subscribers: DOMObserverSubscribe[] = []
 
   /**
-   *
    *
    */
   private constructor(options: DOMObserverConstructorOptions) {
@@ -28,40 +28,18 @@ export class DOMObserver {
   public static getInstance(
     options: DOMObserverGetInstanceOptions = {},
   ): DOMObserver {
-    let { baseNode } = options
+    const { baseNode = this.#DEFAULT_BASE_NODE } = options
 
-    if (!baseNode) {
-      baseNode = document.body
+    for (const ins of this.#instances) {
+      if (ins.#baseNode === baseNode) {
+        return ins
+      }
     }
 
-    if (!DOMObserver.#instance) {
-      DOMObserver.#instance = new this({ baseNode })
-    }
+    const ins = new this({ baseNode })
+    this.#instances.push(ins)
 
-    return DOMObserver.#instance
-  }
-
-  /**
-   * `MutationObserver`를 시작하는 메소드
-   */
-  #start() {
-    this.#observer.observe(this.#baseNode, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeOldValue: true,
-    })
-
-    this.#isStarted = true
-  }
-
-  /**
-   * `MutationObserver`를 정지하는 메소드
-   */
-  #stop() {
-    this.#observer.disconnect()
-
-    this.#isStarted = false
+    return ins
   }
 
   /**
@@ -70,8 +48,8 @@ export class DOMObserver {
    * @param options 모니터링할 때 사용하는 옵션
    * @returns
    */
-  public subscribe(
-    options: DOMObserverSubscribe,
+  public subscribe<E extends Element = Element>(
+    options: DOMObserverSubscribe<E>,
   ): DOMObserverSubscribeController {
     const { selector, onAdd, onRemove, onAttribute } = options
 
@@ -81,7 +59,7 @@ export class DOMObserver {
       throw new Error('You must register at least one type of listener')
     }
 
-    const subscriberIndex = this.#subscribers.push(options)
+    this.#subscribers.push(options)
 
     if (!this.#isStarted) {
       this.#start()
@@ -89,15 +67,22 @@ export class DOMObserver {
 
     return {
       unsubscribe: () => {
-        this.#subscribers.splice(subscriberIndex, 1)
+        const subscriberIndex = this.#subscribers.indexOf(options)
 
-        if (this.#subscribers.length === 0) {
-          this.#stop()
+        if (subscriberIndex >= 0) {
+          this.#subscribers.splice(subscriberIndex, 1)
         }
+
+        this.#removeThisInstanceIfInactive()
       },
     }
   }
 
+  /**
+   * {@linkcode MutationObserver} Callback 함수
+   *
+   * @param muts
+   */
   #mutationCallback(muts: MutationRecord[]): void {
     for (const mut of muts) {
       if (mut.type === 'childList') {
@@ -190,6 +175,56 @@ export class DOMObserver {
         }
       }
     }
+  }
+
+  /**
+   * `MutationObserver`를 시작하는 메소드
+   */
+  #start() {
+    this.#observer.observe(this.#baseNode, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeOldValue: true,
+    })
+
+    this.#isStarted = true
+  }
+
+  /**
+   * `MutationObserver`를 정지하는 메소드
+   */
+  #stop() {
+    this.#observer.disconnect()
+
+    this.#isStarted = false
+  }
+
+  /**
+   * 조건에 해당하는지 확인한 다음 인스턴스 모음 객체에서 인스턴스를 삭제하는 메소드 실행
+   *
+   * @returns 삭제 조건에 해당할 경우 `true` 반환
+   */
+  #removeThisInstanceIfInactive(): boolean {
+    if (this.#subscribers.length > 0) return false
+
+    return this.#removeThisInstance()
+  }
+
+  /**
+   * 인스턴스 모음 객체에서 인스턴스를 제거하는 메소드
+   *
+   * @returns 삭제되었을 경우 `true` 반환
+   */
+  #removeThisInstance(): boolean {
+    this.#stop()
+
+    const index = DOMObserver.#instances.indexOf(this)
+    if (index < 0) return false
+
+    const deletedInstances = DOMObserver.#instances.splice(index, 1)
+
+    return deletedInstances.length === 1
   }
 }
 
