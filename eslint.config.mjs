@@ -11,7 +11,10 @@ const eslintConfig = [
   pluginJs.configs.recommended,
   ...tsEsLint.configs.recommended,
   eslintConfigPrettier,
-  globalIgnores(['dist/**/*.js', '{packages,shared}/*/dist/**/*.{js,cjs,mjs}']),
+  globalIgnores([
+    'dist/**/*.js',
+    '{packages,shared}/*/dist/**/*.{js,cjs,mjs,d.ts,d.cts}',
+  ]),
   {
     files: ['src/**/*.ts', '{packages,shared}/*/src/**/*.{ts,tsx}'],
     rules: {
