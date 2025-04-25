@@ -4,13 +4,17 @@ import { isBlank } from '../strings'
  * {@linkcode MutationObserver}를 이용해 DOM 변화를 감지하는 클래스
  */
 export class DOMObserver {
-  static readonly #DEFAULT_BASE_NODE: Node = document.body
+  static #DEFAULT_BASE_NODE: Node = document.body
   static #instances: DOMObserver[] = []
   readonly #observer: MutationObserver
   /** 변경 사항을 감지할 `Node` */
   readonly #baseNode: Node
   #isStarted = false
   #subscribers: DOMObserverSubscribe[] = []
+
+  static #staticInitEventListener() {
+    this.#DEFAULT_BASE_NODE = document.body
+  }
 
   /**
    *
@@ -28,7 +32,17 @@ export class DOMObserver {
   public static getInstance(
     options: DOMObserverGetInstanceOptions = {},
   ): DOMObserver {
-    const { baseNode = this.#DEFAULT_BASE_NODE } = options
+    let { baseNode } = options
+
+    if (!baseNode) {
+      baseNode = DOMObserver.#DEFAULT_BASE_NODE
+    }
+
+    if (!(baseNode instanceof Node)) {
+      console.log('baseNode', baseNode)
+      console.log('this.#DEFAULT_BASE_NODE', this.#DEFAULT_BASE_NODE)
+      throw new Error('The type of the baseNode property must be of type Node')
+    }
 
     for (const ins of this.#instances) {
       if (ins.#baseNode === baseNode) {
@@ -55,7 +69,7 @@ export class DOMObserver {
 
     if (selector && isBlank(selector)) throw new Error('Selector is blank')
 
-    if (onAdd || onRemove || onAttribute) {
+    if (!onAdd && !onRemove && !onAttribute) {
       throw new Error('You must register at least one type of listener')
     }
 
@@ -225,6 +239,15 @@ export class DOMObserver {
     const deletedInstances = DOMObserver.#instances.splice(index, 1)
 
     return deletedInstances.length === 1
+  }
+
+  static {
+    addEventListener(
+      'DOMContentLoaded',
+      this.#staticInitEventListener.bind(this),
+    )
+
+    addEventListener('load', this.#staticInitEventListener.bind(this))
   }
 }
 
