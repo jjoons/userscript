@@ -40,16 +40,18 @@ export const waitForElement = <E extends Element = Element>({
   })
 }
 
-export const onBodyReady = ({ callback }: OnBodyReadyOptions) => {
+export const onBodyReady = (
+  callback: OnBodyReadyCallback,
+): OnBodyReadyCancelCallback | void => {
   if (document.body instanceof HTMLElement) {
-    callback({ body: document.body })
+    callback(document.body)
     return
   }
 
   const observer = new MutationObserver((_, obs) => {
     if (document.body instanceof HTMLElement) {
       obs.disconnect()
-      callback({ body: document.body })
+      callback(document.body)
     }
   })
 
@@ -57,10 +59,8 @@ export const onBodyReady = ({ callback }: OnBodyReadyOptions) => {
     childList: true,
   })
 
-  return {
-    cancel: () => {
-      observer.disconnect()
-    },
+  return () => {
+    observer.disconnect()
   }
 }
 
@@ -70,10 +70,6 @@ interface WaitForElementOptions {
   timeout?: number
 }
 
-interface OnBodyReadyOptions {
-  callback(event: OnBodyReadyEvent): void
-}
+type OnBodyReadyCallback = (body: HTMLElement) => void
 
-interface OnBodyReadyEvent {
-  body: HTMLElement
-}
+type OnBodyReadyCancelCallback = () => void
