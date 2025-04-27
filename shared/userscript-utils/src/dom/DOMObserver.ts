@@ -13,7 +13,9 @@ export class DOMObserver {
   #subscribers: DOMObserverSubscribe[] = []
 
   static #staticInitEventListener() {
-    this.#DEFAULT_BASE_NODE = document.body
+    if (!this.#DEFAULT_BASE_NODE && document.body instanceof Node) {
+      this.#DEFAULT_BASE_NODE = document.body
+    }
   }
 
   /**
