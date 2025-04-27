@@ -229,10 +229,10 @@ export class DOMObserver {
    * @returns 삭제되었을 경우 `true` 반환
    */
   #removeThisInstance(): boolean {
-    this.#stop()
-
     const index = DOMObserver.#instances.indexOf(this)
     if (index < 0) return false
+
+    this.#stop()
 
     const deletedInstances = DOMObserver.#instances.splice(index, 1)
 
