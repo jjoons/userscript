@@ -10,7 +10,6 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   dts: true,
-  target: 'esnext',
   outDir: 'dist',
   format: ['esm', 'cjs'],
 })
