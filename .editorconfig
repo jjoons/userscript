@@ -9,3 +9,6 @@ trim_trailing_whitespace = true
 [*.{ts,tsx,css,scss}]
 max_line_length = 100
 indent_size = 2
+
+[*.{yaml,yml,json}]
+indent_size = 2
