@@ -31,9 +31,7 @@ export class DOMObserver {
    *
    * @param options 인스턴스를 생성할 때 사용하는 옵션
    */
-  public static getInstance(
-    options: DOMObserverGetInstanceOptions = {},
-  ): DOMObserver {
+  public static getInstance(options: DOMObserverGetInstanceOptions = {}): DOMObserver {
     let { baseNode } = options
 
     if (!baseNode) {
@@ -112,9 +110,7 @@ export class DOMObserver {
 
                     if (el) onAdd({ node: el, deep: deep.add })
                   } else if (deep.add === 'all') {
-                    for (const el of Array.from(
-                      addedNode.querySelectorAll(selector),
-                    )) {
+                    for (const el of Array.from(addedNode.querySelectorAll(selector))) {
                       onAdd({ node: el, deep: deep.add })
                     }
                   }
@@ -136,9 +132,7 @@ export class DOMObserver {
 
                     if (el) onRemove({ node: el, deep: deep.remove })
                   } else if (deep.remove === 'all') {
-                    for (const el of Array.from(
-                      removedNodes.querySelectorAll(selector),
-                    )) {
+                    for (const el of Array.from(removedNodes.querySelectorAll(selector))) {
                       onRemove({ node: el, deep: deep.remove })
                     }
                   }
@@ -154,7 +148,7 @@ export class DOMObserver {
               if (mut.target.matches(selector)) {
                 onAttribute({
                   node: mut.target,
-                  value: mut.attributeName,
+                  attributeName: mut.attributeName,
                   oldValue: mut.oldValue,
                 })
               } else if (deep.attribute === 'single') {
@@ -163,17 +157,15 @@ export class DOMObserver {
                 if (el)
                   onAttribute({
                     node: el,
-                    value: mut.attributeName,
+                    attributeName: mut.attributeName,
                     oldValue: mut.oldValue,
                     deep: deep.attribute,
                   })
               } else if (deep.attribute === 'all') {
-                for (const el of Array.from(
-                  mut.target.querySelectorAll(selector),
-                )) {
+                for (const el of Array.from(mut.target.querySelectorAll(selector))) {
                   onAttribute({
                     node: el,
-                    value: mut.attributeName,
+                    attributeName: mut.attributeName,
                     oldValue: mut.oldValue,
                     deep: deep.attribute,
                   })
@@ -182,7 +174,7 @@ export class DOMObserver {
             } else
               onAttribute({
                 node: mut.target,
-                value: mut.attributeName,
+                attributeName: mut.attributeName,
                 oldValue: mut.oldValue,
               })
           }
@@ -242,10 +234,7 @@ export class DOMObserver {
   }
 
   static {
-    addEventListener(
-      'DOMContentLoaded',
-      this.#staticInitEventListener.bind(this),
-    )
+    addEventListener('DOMContentLoaded', this.#staticInitEventListener.bind(this))
 
     addEventListener('load', this.#staticInitEventListener.bind(this))
   }
@@ -307,8 +296,7 @@ interface DOMObserverEvent<E extends Element = Element> {
 /**
  * Attribute, CharacterData 변경 이벤트가 감지되었을 때 전달되는 객체
  */
-interface DOMObserverAttrCharDataEvent<E extends Element = Element>
-  extends DOMObserverEvent<E> {
-  value: string | null
+interface DOMObserverAttrCharDataEvent<E extends Element = Element> extends DOMObserverEvent<E> {
+  attributeName: string | null
   oldValue: string | null
 }
