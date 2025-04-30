@@ -5,6 +5,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
     "build": "pnpm build-shared && pnpm -r --filter=./packages/* build",
     "build-shared": "pnpm -r --filter=./shared/* build",
     "clean": "rm -rf dist/"
