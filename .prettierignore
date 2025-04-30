@@ -1,5 +1,6 @@
 dist
 packages/*/dist/
 shared/*/dist/
+pnpm-lock.yaml
 
 ##### Custom
