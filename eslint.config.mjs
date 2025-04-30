@@ -6,8 +6,6 @@ import tsEsLint from 'typescript-eslint'
 
 /** @type {import('eslint').Linter.Config[]} */
 const eslintConfig = [
-  { files: ['src/**/*.{ts}'] },
-  { languageOptions: { globals: { ...globals.browser } } },
   pluginJs.configs.recommended,
   ...tsEsLint.configs.recommended,
   eslintConfigPrettier,
@@ -15,6 +13,7 @@ const eslintConfig = [
     'dist/**/*.js',
     '{packages,shared}/*/dist/**/*.{js,cjs,mjs,d.ts,d.cts}',
   ]),
+  { languageOptions: { globals: { ...globals.browser } } },
   {
     files: ['src/**/*.ts', '{packages,shared}/*/src/**/*.{ts,tsx}'],
     rules: {
