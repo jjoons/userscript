@@ -1,39 +1,39 @@
 {
-    "name": "userscript-utils",
-    "version": "0.0.0",
-    "private": true,
-    "type": "module",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "scripts": {
-        "build": "tsup"
+  "name": "userscript-utils",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
-    "exports": {
-        ".": {
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.cjs"
-        },
-        "./dom": {
-            "import": "./dist/dom/index.js",
-            "require": "./dist/dom/index.cjs"
-        },
-        "./strings": {
-            "import": "./dist/strings/index.js",
-            "require": "./dist/strings/index.cjs"
-        },
-        "./others": {
-            "import": "./dist/others/index.js",
-            "require": "./dist/others/index.cjs"
-        }
+    "./dom": {
+      "import": "./dist/dom/index.js",
+      "require": "./dist/dom/index.cjs"
     },
-    "typesVersions": {
-        "*": {
-            "*": [
-                "dist/*"
-            ]
-        }
+    "./strings": {
+      "import": "./dist/strings/index.js",
+      "require": "./dist/strings/index.cjs"
     },
-    "files": [
-        "dist"
-    ]
+    "./others": {
+      "import": "./dist/others/index.js",
+      "require": "./dist/others/index.cjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ]
 }

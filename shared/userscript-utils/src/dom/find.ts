@@ -8,13 +8,8 @@ export const getNodeByXPathExpression = <E extends Node = Node>(
   expression: string,
   node: Node = document,
 ): E | null =>
-  document.evaluate(
-    expression,
-    node,
-    null,
-    XPathResult.FIRST_ORDERED_NODE_TYPE,
-    null,
-  ).singleNodeValue as E | null
+  document.evaluate(expression, node, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
+    .singleNodeValue as E | null
 
 /**
  * {@linkcode XPathResult} 객체에서 {@linkcode E}를 꺼내서 `Array`에 담는 유틸 함수
@@ -32,9 +27,7 @@ export const getNodeByXPathExpression = <E extends Node = Node>(
  * // returns [div.item.entry, div.item.item_b, /* ...]
  * xPathResultToArray(xPathResult)
  */
-export const xPathResultToArray = <E extends Node>(
-  xPathResult: XPathResult,
-): E[] => {
+export const xPathResultToArray = <E extends Node>(xPathResult: XPathResult): E[] => {
   const nodes: E[] = []
 
   switch (xPathResult.resultType) {

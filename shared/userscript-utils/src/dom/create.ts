@@ -10,7 +10,4 @@ export const createElements = <T extends keyof HTMLElementTagNameMap>(
   tagName: T,
   count: number,
   options?: ElementCreationOptions,
-) =>
-  Array.from({ length: count }, () =>
-    document.createElement<T>(tagName, options),
-  )
+) => Array.from({ length: count }, () => document.createElement<T>(tagName, options))

@@ -35,9 +35,7 @@ void (function (D, L) {
     }`)
 
     addEventListener('load', () => {
-      const sortAreaEl = D.querySelector<HTMLDivElement>(
-        'form[name=searchForm1] div.sortArea',
-      )
+      const sortAreaEl = D.querySelector<HTMLDivElement>('form[name=searchForm1] div.sortArea')
 
       if (sortAreaEl) {
         const [topArea, checkBoxArea] = createElements('div', 2)

@@ -48,9 +48,7 @@ export const observeElement = <E extends Element = Element>(
 
                   if (el) onAdd({ node: el, recursive: recursive.add })
                 } else if (recursive.add === 'all') {
-                  for (const el of Array.from(
-                    addedNode.querySelectorAll<E>(selector),
-                  )) {
+                  for (const el of Array.from(addedNode.querySelectorAll<E>(selector))) {
                     onAdd({ node: el, recursive: recursive.add })
                   }
                 }
@@ -70,9 +68,7 @@ export const observeElement = <E extends Element = Element>(
 
                   if (el) onRemove({ node: el, recursive: recursive.remove })
                 } else if (recursive.remove === 'all') {
-                  for (const el of Array.from(
-                    removedNodes.querySelectorAll<E>(selector),
-                  )) {
+                  for (const el of Array.from(removedNodes.querySelectorAll<E>(selector))) {
                     onRemove({ node: el, recursive: recursive.remove })
                   }
                 }
@@ -80,11 +76,7 @@ export const observeElement = <E extends Element = Element>(
             }
           }
         }
-      } else if (
-        mut.type === 'attributes' &&
-        onAttribute &&
-        mut.target instanceof Element
-      ) {
+      } else if (mut.type === 'attributes' && onAttribute && mut.target instanceof Element) {
         if (selector) {
           if (mut.target.matches(selector)) {
             onAttribute({
@@ -103,9 +95,7 @@ export const observeElement = <E extends Element = Element>(
                 oldValue: mut.oldValue,
               })
           } else if (recursive.attribute === 'all') {
-            for (const el of Array.from(
-              mut.target.querySelectorAll<E>(selector),
-            )) {
+            for (const el of Array.from(mut.target.querySelectorAll<E>(selector))) {
               onAttribute({
                 node: el,
                 recursive: recursive.attribute,

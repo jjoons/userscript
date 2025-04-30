@@ -40,9 +40,7 @@ export const waitForElement = <E extends Element = Element>({
   })
 }
 
-export const onBodyReady = (
-  callback: OnBodyReadyCallback,
-): OnBodyReadyCancelCallback | void => {
+export const onBodyReady = (callback: OnBodyReadyCallback): OnBodyReadyCancelCallback | void => {
   if (document.body instanceof HTMLElement) {
     callback(document.body)
     return
