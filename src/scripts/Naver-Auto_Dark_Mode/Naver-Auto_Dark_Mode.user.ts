@@ -2,7 +2,7 @@
 // @name        네이버: 자동 다크 모드
 // @description 브라우저의 다크 모드 설정에 따라서 자동으로 다크 모드로 전환합니다.
 // @namespace   https://github.com/jjoons
-// @author      JS Lee
+// @author      JJoonS
 // @version     0.1.3
 // @license     MIT
 // @homepage    https://github.com/jjoons/userscript
@@ -13,7 +13,7 @@
 // @noframes
 // ==/UserScript==
 
-void (function (D, L) {
+void (function () {
   alert(
     '네이버 홈페이지에서 기기 설정에 따른 다크 모드를 지원하게 되어\n' +
       '더 이상 [' +
@@ -23,4 +23,4 @@ void (function (D, L) {
       '이 알림창이 더 이상 나타나지 않습니다.\n\n' +
       '그 동안 이용해 주셔서 감사합니다.',
   )
-})(document, location)
+})()
