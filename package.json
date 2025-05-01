@@ -14,6 +14,7 @@
     "clean": "rm -rf dist/"
   },
   "dependencies": {
+    "@iconify/react": "^6.0.0",
     "preact": "^10.25.3"
   },
   "devDependencies": {
