@@ -1,10 +1,11 @@
 import { isBlank } from '../strings'
+import { onBodyReady } from './wait'
 
 /**
  * {@linkcode MutationObserver}를 이용해 DOM 변화를 감지하는 클래스
  */
 export class DOMObserver {
-  static #DEFAULT_BASE_NODE: Node = document.body
+  static #defaultBaseNode: Node = this.#getInitDefaultBaseNode()
   static #instances: DOMObserver[] = []
   readonly #observer: MutationObserver
   /** 변경 사항을 감지할 `Node` */
@@ -12,9 +13,16 @@ export class DOMObserver {
   #isStarted = false
   #subscribers: DOMObserverSubscribe[] = []
 
+  static #getInitDefaultBaseNode(): Node {
+    return document.body
+  }
+
   static #staticInitEventListener() {
-    if (!this.#DEFAULT_BASE_NODE && document.body instanceof Node) {
-      this.#DEFAULT_BASE_NODE = document.body
+    if (
+      !document.contains(this.#defaultBaseNode) &&
+      this.#getInitDefaultBaseNode() instanceof Node
+    ) {
+      this.#defaultBaseNode = this.#getInitDefaultBaseNode()
     }
   }
 
@@ -35,7 +43,7 @@ export class DOMObserver {
     let { baseNode } = options
 
     if (!baseNode) {
-      baseNode = DOMObserver.#DEFAULT_BASE_NODE
+      baseNode = DOMObserver.#defaultBaseNode
     }
 
     if (!(baseNode instanceof Node)) {
@@ -234,7 +242,7 @@ export class DOMObserver {
   }
 
   static {
-    addEventListener('DOMContentLoaded', this.#staticInitEventListener.bind(this))
+    onBodyReady(this.#staticInitEventListener.bind(this))
 
     addEventListener('load', this.#staticInitEventListener.bind(this))
   }
