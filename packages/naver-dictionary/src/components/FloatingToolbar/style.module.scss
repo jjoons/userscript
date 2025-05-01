@@ -1,0 +1,40 @@
+.toolbarWrap {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 9999;
+
+  [data-theme='dark'] & {
+    color: #dddddd;
+  }
+
+  & > .toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    & .button {
+      background-color: rgb(238 238 238 / 0.7);
+      padding: 0.625rem;
+      line-height: 0;
+      border: 1px solid #222;
+      border-radius: 0.5rem;
+      backdrop-filter: blur(0.5rem);
+      color: #111;
+
+      &:hover {
+        background-color: #bbb;
+      }
+
+      [data-theme='dark'] & {
+        background-color: rgb(34 34 34 / 0.7);
+        border-color: #444;
+        color: #eee;
+
+        &:hover {
+          background-color: #333;
+        }
+      }
+    }
+  }
+}

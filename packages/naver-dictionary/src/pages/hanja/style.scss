@@ -1,0 +1,167 @@
+:root {
+  --font-sans-ko: 'Noto Sans CJK KR', 'Noto Sans KR', sans-serif;
+  --font-serif-ko: 'Noto Serif CJK KR', 'Noto Serif KR', var(--font-serif-zh-fallback), serif;
+
+  --font-sans-ja: 'Noto Sans CJK JP', 'Noto Sans JP', sans-serif;
+  --font-serif-ja: 'Noto Serif CJK JP', 'Noto Serif JP', var(--font-serif-zh-fallback), serif;
+
+  --font-sans-zh-cn: 'Noto Sans CJK SC', 'Noto Sans SC', sans-serif;
+  --font-serif-zh-cn: 'Noto Serif CJK SC', 'Noto Serif SC', var(--font-serif-zh-fallback), serif;
+
+  --font-serif-zh-fallback: 'BabelStone Han';
+}
+
+body {
+  &:lang(ko),
+  & :lang(ko) {
+    font-family: var(--font-sans-ko);
+  }
+
+  &:lang(ja),
+  & :lang(ja) {
+    font-family: var(--font-sans-ja);
+  }
+
+  &:lang(zh),
+  & :lang(zh) {
+    font-family: var(--font-sans-zh-cn);
+  }
+}
+
+// 한국 한자
+:lang(ko) {
+  &[data-type='quant'],
+  & [data-type='quant'],
+  &[href^='#/entry/ccko/'],
+  & [href^='#/entry/ccko/'] {
+    font-family: var(--font-serif-ko);
+  }
+}
+
+// 일본 한자
+:lang(ja) {
+  &[data-type='quant'],
+  & [data-type='quant'] {
+    font-family: var(--font-serif-ja);
+  }
+}
+
+// 중국 한자
+:lang(zh) {
+  &[data-type='quant'],
+  & [data-type='quant'] {
+    font-family: var(--font-serif-zh-cn);
+  }
+}
+
+// 검색
+#header #searchArea {
+  // 최근 검색어 드롭다운 - 검색한 단어 항목
+  & .ly_my_keyword > ul.list_word > li > .addible > .word_wrap:lang(ko) {
+    font-family: var(--font-serif-ko);
+  }
+
+  // 검색어 입력
+  & .keyword_search_inner .keyword:lang(ko) {
+    font-family: var(--font-sans-ko);
+  }
+
+  // 검색어 제안 항목
+  & #ac_layer ul.list_word > li .word_wrap:lang(ko) {
+    font-family: var(--font-sans-ko);
+
+    // 검색어 하이라이트
+    & > .match_word {
+      font-family: var(--font-sans-ko);
+    }
+  }
+}
+
+// 한자 필기인식기/필기입력기
+#header #write_device {
+  & > dl > dd#writeDevice > table > tbody td {
+    font-family: var(--font-serif-ko);
+  }
+}
+
+// 사이드바 - 내가 찾은 단어
+.searching_words .word_item a[href^='#/entry/ccko/']:lang(ko) {
+  font-family: var(--font-serif-ko);
+
+  & > strong.highlight {
+    font-family: var(--font-serif-ko);
+  }
+}
+
+// 한자 단어 클릭했을 때 나오는 팝업
+#tooltipLayer_hanja_zoom > #tooltipLayer_hanja_zoom_list .u_word_zoom {
+  font-family: var(--font-serif-ko) !important;
+}
+
+// 한자 클릭했을 때 나오는 팝업
+#tooltipLayer_dict {
+  & > dl.u_helpdict_area {
+    // 한자
+    & > dt.u_headword > .u_btn_headword:lang(ko) {
+      font-family: var(--font-serif-ko) !important;
+
+      // 한자 훈음
+      & > .u_origin_word {
+        font-family: var(--font-sans-ko);
+      }
+    }
+
+    // 한자 간략 의미, 설명
+    & > dd.u_definition > ul.u_mean_word > li.u_mean_word_item {
+      // 한자 의미
+      & > .u_word_mean {
+        font-family: var(--font-sans-ko) !important;
+
+        // 의미 번호
+        & > .u_words_num {
+          font-family: var(--font-sans-ko);
+        }
+      }
+
+      // 부수
+      .u_option_radical:lang(ko) {
+        font-family: var(--font-serif-ko);
+      }
+    }
+  }
+}
+
+// 메인 페이지 - 최근 검색어
+.search_area .my_keyword_list > li > a.my_keyword:lang(ko) {
+  font-family: var(--font-serif-ko);
+}
+
+// 한자정보 페이지 - 한자
+.component_entry .entry_title .word:lang(ko) {
+  font-family: var(--font-serif-ko);
+}
+
+// 검색 페이지 - 음, 한자
+#searchLetterPage_content > .row .hanja_link:lang(ko) {
+  font-family: var(--font-serif-ko);
+
+  & > strong.highlight {
+    font-family: var(--font-serif-ko);
+  }
+}
+
+// 검색 페이지 - 단어, 성어
+#searchPage_entry .row .link:lang(ko) {
+  font-family: var(--font-serif-ko);
+
+  & > strong.highlight {
+    font-family: var(--font-serif-ko);
+  }
+}
+
+// 하단 Footer
+#footer {
+  & > .btn_top {
+    display: none;
+  }
+}
