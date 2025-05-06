@@ -1,4 +1,4 @@
-import { isBlank } from '../strings'
+import { checkSelectorValid } from './validation'
 import { onBodyReady } from './wait'
 
 /**
@@ -73,7 +73,9 @@ export class DOMObserver {
   ): DOMObserverSubscribeController {
     const { selector, onAdd, onRemove, onAttribute } = options
 
-    if (selector && isBlank(selector)) throw new Error('Selector is blank')
+    if (selector) {
+      checkSelectorValid(selector)
+    }
 
     if (!onAdd && !onRemove && !onAttribute) {
       throw new Error('You must register at least one type of listener')
