@@ -15,9 +15,11 @@ const FloatingToolbar: preact.FunctionComponent = () => {
   return (
     <div className={style.toolbarWrap}>
       <div className={style.toolbar}>
+        {/*
         <button type="button" class={style.button} onClick={settingsContext.open}>
           <Icon icon="tabler:settings" width={ICON_SIZE} height={ICON_SIZE} />
         </button>
+        */}
 
         <button type="button" class={style.button} onClick={scrollToTop}>
           <Icon icon="carbon:up-to-top" width={ICON_SIZE} height={ICON_SIZE} />
